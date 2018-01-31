@@ -1,24 +1,51 @@
-﻿using Web.Managers;
+﻿using Newtonsoft.Json;
+using System;
+using System.Net;
+using System.Text;
+using Web.Data;
+using Web.Models;
 
 namespace Web.Helpers
 {
     public class ApiClient
     {
-        public ProjectsManager Projects { get; private set; }
-        public PullRequestsManager PullRequests { get; private set; }
+        private readonly WebClient _client;
 
-        private readonly HttpCommunicationWorker _httpWorker;
-        
         public ApiClient()
         {
-            _httpWorker = new HttpCommunicationWorker("http://sh31.corteos.ru:7990/", "jenkins", "q123456w");
-            InjectDependencies();
+            _client = new WebClient {Encoding = Encoding.UTF8};
+            var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiConstans.Login + ":" + ApiConstans.Password));
+            _client.Headers[HttpRequestHeader.Authorization] = $"Basic {credentials}";
         }
 
-        private void InjectDependencies()
+        public T GetProjects<T>()
         {
-            Projects = new ProjectsManager(_httpWorker);
-            PullRequests = new PullRequestsManager(_httpWorker);
+            var result = _client.DownloadString(ApiConstans.BaseUrl + ApiConstans.ManyProjects);
+            var response = JsonConvert.DeserializeObject<T>(result);
+
+            return response;
+        }
+
+        public string GetProjectAvatar(string projectKey)
+        {
+            return _client.DownloadString(ApiConstans.BaseUrl + ApiConstans.ManyProjects + projectKey);
+        }
+
+        public T GetPullRequests<T>(string projectKey, string repositorySlug)
+        {
+            string requestUrl = UrlBuilder
+                .ToRestApiUrl(string.Format(ApiConstans.PullRequest, projectKey, repositorySlug))
+                .WithQueryParam("state", PullRequestState.All.ToString());
+            try
+            {
+                var result = _client.DownloadString($"{ApiConstans.BaseUrl}{requestUrl}");
+                var response = JsonConvert.DeserializeObject<T>(result);
+                return response;
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
         }
     }
 }

@@ -6,9 +6,10 @@ namespace Web.Helpers
     {
         private static DateTime _mEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        public static DateTime FromTimestamp(this long timestamp)
+        public static string FromTimestamp(this long timestamp)
         {
-            return _mEpoch.AddMilliseconds(timestamp);
+            var time = _mEpoch.AddMilliseconds(timestamp);
+            return time.ToString("d");
         }
     }
 }

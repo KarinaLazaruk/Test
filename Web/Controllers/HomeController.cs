@@ -1,7 +1,6 @@
-﻿using System.Threading.Tasks;
+﻿using System.Linq;
 using System.Web.Mvc;
 using Web.Helpers;
-using Web.Managers;
 using Web.Models;
 
 namespace Web.Controllers
@@ -12,15 +11,8 @@ namespace Web.Controllers
 
         public ActionResult Index()
         {
-            var response = new ResponseWrapper<Project>();
-            Task.Run(async () => response = await _apiClient.Projects.Get()).Wait();
+            var response = _apiClient.GetProjects<ResponseWrapper<Project>>();
 
             return View(response);
-        }
-
-        public ActionResult Action(Project project)
-        {
-            return View("ProjectView");
-        }
-    }
+        }}
 }

@@ -1,4 +1,4 @@
-﻿@model Web.Managers.ResponseWrapper<Web.Models.Project>
+﻿@model Web.Models.ResponseWrapper<Web.Models.Project>
 
 @{
     ViewBag.Title = "Projects";
@@ -13,8 +13,8 @@
             <div class="thumbnail">
                 <img class="media-object" src="http://zerflin.info/wp-content/uploads/2018/01/Zerflin-Social-Media-11_Twitter-Avatar.png" alt="">
                 <a href="@Url.Action("Index", "Project", value)"><h>@value.Name</h></a>
-                <p>@value.Description</p>
             </div>
         </div>
     }
 </div>
+
