@@ -12,5 +12,6 @@ namespace Web.Models
         public Author User { get; set; }
         [JsonProperty("status")]
         public string Status { get; set; }
+        public string Avatar { get; set; }
     }
 }

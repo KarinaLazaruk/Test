@@ -1,5 +1,4 @@
-﻿using System.Linq;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using Web.Helpers;
 using Web.Models;
 
@@ -12,6 +11,9 @@ namespace Web.Controllers
         public ActionResult Index()
         {
             var response = _apiClient.GetProjects<ResponseWrapper<Project>>();
+
+            foreach (var value in response.Values)
+                value.Avatar = value.GetProjectAvatar();
 
             return View(response);
         }}

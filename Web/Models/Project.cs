@@ -15,5 +15,6 @@ namespace Web.Models
         public string Type { get; set; }
         public Link Link { get; set; }
         public Links Links { get; set; }
+        public string Avatar { get; set; }
     }
 }

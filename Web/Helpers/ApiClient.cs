@@ -21,14 +21,7 @@ namespace Web.Helpers
         public T GetProjects<T>()
         {
             var result = _client.DownloadString(ApiConstans.BaseUrl + ApiConstans.ManyProjects);
-            var response = JsonConvert.DeserializeObject<T>(result);
-
-            return response;
-        }
-
-        public string GetProjectAvatar(string projectKey)
-        {
-            return _client.DownloadString(ApiConstans.BaseUrl + ApiConstans.ManyProjects + projectKey);
+            return JsonConvert.DeserializeObject<T>(result);
         }
 
         public T GetPullRequests<T>(string projectKey, string repositorySlug)

@@ -11,8 +11,8 @@
     {
         <div class="col-xs-6 col-md-3">
             <div class="thumbnail">
-                <img class="media-object" src="http://zerflin.info/wp-content/uploads/2018/01/Zerflin-Social-Media-11_Twitter-Avatar.png" alt="">
-                <a href="@Url.Action("Index", "Project", value)"><h>@value.Name</h></a>
+                <img class="media-object" width ="200" height="200" src="@value.Avatar" alt="">
+                <div style="text-align: center; font-size: large"><a href="@Url.Action("Index", "Project", value)"><h>@value.Name</h></a></div>
             </div>
         </div>
     }

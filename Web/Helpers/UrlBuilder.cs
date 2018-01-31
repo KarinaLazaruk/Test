@@ -33,7 +33,7 @@ namespace Web.Helpers
 
             public override string ToString()
             {
-                StringBuilder sb = new StringBuilder(_mUrl);
+                var sb = new StringBuilder(_mUrl);
 
                 //Format query params
                 if (_mQueryParams.Any())
@@ -46,7 +46,6 @@ namespace Web.Helpers
                     }
                     sb.Length -= 1;
                 }
-
                 return sb.ToString();
             }
         }

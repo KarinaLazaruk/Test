@@ -1,21 +1,42 @@
-﻿@model Web.Controllers.ProjectInfo
+﻿@model Web.ViewModels.PullRequestViewModel
 
 @{
     ViewBag.Title = "Projects";
 }
 
-<h2>Журнал проекта @Model.Name</h2>
+<h2 style="margin-bottom: 15px">Журнал проекта @Model.Name</h2>
 
-<div class="row">
-    @foreach (var pullRequest in @Model.PullRequests)
+<ul class="list-group" style="margin-bottom: 15px">
+    @foreach (var pullRequest in Model.PullRequests)
     {
-        <div class="thumbnail">
-            <p>@pullRequest.Id @pullRequest.Description @pullRequest.Date</p>
-            <div class="media">
-                <a class="pull-left"> <img class="media-object" src="http://catcut.net/O9Ne" alt=""></a>
-                <h3>...</h3>
+        <div class="row" style="margin-bottom: 10px; font-size: large">
+            <div class="col-md-9">@pullRequest.Id @pullRequest.Title</div>
+            <div class="col-md-1" style="text-align: end">@pullRequest.Date</div>
+        </div>
+        <div class="row" style="margin-bottom: 10px">
+            <div class="col-md-2">
+                <img class="media-object" width="190" height="190" src="@pullRequest.Author.Avatar" alt="">
+                <div style="text-align: center; font-size: large">
+                    <a href="mailto:@pullRequest.Author.User.EmailAddress">@pullRequest.Author.User.DisplayName</a>
+                </div>
             </div>
-            <h3>@pullRequest.Author.User.DisplayName</h3>
+            <div class="col-md-9"><p> @foreach (var text in pullRequest.Description){@text<br/>}</p></div>
+        </div>
+        <div class="row" style="margin-bottom: 10px;">
+            @if (pullRequest.Reviewers.Count > 0)
+            {
+                <div class="col-md-2" style="text-align: center; font-size: large">Аудиторы:</div>
+                <div class="col-md-8">
+                    @foreach (var auditor in pullRequest.Reviewers)
+                    {
+                        <img width="30" height="30" src="@auditor.Avatar" alt="">
+                        <a href="mailto:@auditor.User.EmailAddress">@auditor.User.DisplayName </a>
+                    }
+                </div>
+            }
+        </div>
+        <div class="row" style="margin-bottom: 10px; border-bottom: 2px solid black">
+            <div class="col-md-8 col-md-offset-8"> <a href="" style="text-align: right">Подробности обновления</a></div>
         </div>
     }
-</div>
+</ul>
