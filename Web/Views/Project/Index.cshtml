@@ -1,0 +1,22 @@
+﻿@model Web.Controllers.ProjectInfo
+@Html.RouteLink("Default",  new { id = Model.Name })
+
+@{
+    ViewBag.Title = "Projects";
+}
+
+<h2>Журнал проекта @Model.Name</h2>
+
+<div class="row">
+    @foreach (var pullRequest in @Model.PullRequests)
+    {
+        <div class="thumbnail">
+            <p>@pullRequest.Id @pullRequest.Description @pullRequest.Date</p>
+            <div class="media">
+                <a class="pull-left"> <img class="media-object" src="http://catcut.net/O9Ne" alt=""></a>
+                <h3>...</h3>
+            </div>
+            <h3>@pullRequest.Author.User.DisplayName</h3>
+        </div>
+    }
+</div>
