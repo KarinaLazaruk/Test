@@ -24,6 +24,12 @@ namespace Web.Helpers
             return JsonConvert.DeserializeObject<T>(result); // parsing json
         }
 
+        public T GetProjectKey<T>(string key) //get project
+        {
+            var result = _client.DownloadString($"{ApiConstans.BaseUrl}{ApiConstans.ManyProjects}/{key}"); //get json
+            return JsonConvert.DeserializeObject<T>(result); // parsing json
+        }
+
         public T GetPullRequests<T>(string projectKey, string repositorySlug) //get pullRequests
         {
             string requestUrl = UrlBuilder

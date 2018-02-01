@@ -26,6 +26,7 @@ namespace Web.ViewModels
         public string Date { get; set; }
         public AuthorWrapper Author { get; set; }
         public List<AuthorWrapper> Reviewers { get; set; }
+        public string Deeplink { get; set; }
 
         public PullRequests(PullRequest pullRequest)
         {
@@ -36,6 +37,7 @@ namespace Web.ViewModels
             Author.Avatar = pullRequest.Author.GetUserAvatar();
             Reviewers = GetReviewers(pullRequest.Reviewers);
             Description = GetDescription(pullRequest.Description);
+            Deeplink = pullRequest.Links.Self.First().Href.AbsoluteUri;
         }
         
         private static List<AuthorWrapper> GetReviewers(AuthorWrapper[] reviewers) //photo's get wrappers
