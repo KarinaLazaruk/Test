@@ -22,11 +22,11 @@ namespace Web.Helpers
                 return url.ToString();
             }
 
-            public FluentUrl WithQueryParam(string key, string value)
+            public FluentUrl WithQueryParam(string key, string value) // generate url with query param
             {
                 if (string.IsNullOrWhiteSpace(key) || string.IsNullOrWhiteSpace(value)) return this;
 
-                _mQueryParams[key] = value;
+                _mQueryParams[key] = value; 
 
                 return this;
             }

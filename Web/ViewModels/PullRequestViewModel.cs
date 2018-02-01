@@ -31,14 +31,14 @@ namespace Web.ViewModels
         {
             Id = pullRequest.Id;
             Title = pullRequest.Title;
-            Date = Convert.ToInt64(pullRequest.CreatedDate).FromTimestamp();
+            Date = Convert.ToInt64(pullRequest.CreatedDate).FromTimestamp(); // convert date
             Author = pullRequest.Author;
             Author.Avatar = pullRequest.Author.GetUserAvatar();
             Reviewers = GetReviewers(pullRequest.Reviewers);
             Description = GetDescription(pullRequest.Description);
         }
         
-        private static List<AuthorWrapper> GetReviewers(AuthorWrapper[] reviewers)
+        private static List<AuthorWrapper> GetReviewers(AuthorWrapper[] reviewers) //photo's get wrappers
         {
             foreach (var wrapper in reviewers.ToList())
                 wrapper.Avatar = wrapper.GetUserAvatar();
@@ -46,7 +46,7 @@ namespace Web.ViewModels
             return reviewers.ToList();
         }
 
-        private List<string> GetDescription(string description)
+        private List<string> GetDescription(string description) //hyphenations
         {
             return description?.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries).ToList() ?? new List<string>{ "Описание отсутствует" };
         }

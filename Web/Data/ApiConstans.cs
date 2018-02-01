@@ -2,6 +2,7 @@
 {
     public class ApiConstans
     {
+        //constants
         public const string BaseUrl = "http://sh31.corteos.ru:7990/";
         public const string Login = "jenkins";
         public const string Password = "q123456w";

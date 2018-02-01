@@ -6,7 +6,7 @@ namespace Web.Helpers
     {
         private static DateTime _mEpoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
 
-        public static string FromTimestamp(this long timestamp)
+        public static string FromTimestamp(this long timestamp) // convert from Timestamp to string
         {
             var time = _mEpoch.AddMilliseconds(timestamp);
             return time.ToString("d");

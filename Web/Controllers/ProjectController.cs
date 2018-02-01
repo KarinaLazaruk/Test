@@ -13,13 +13,13 @@ namespace Web.Controllers
 
         public ActionResult Index(Project project)
         {
-            var response = _apiClient.GetPullRequests<ResponseWrapper<PullRequest>>(project.Key, project.Name);
-            
+            var response = _apiClient.GetPullRequests<ResponseWrapper<PullRequest>>(project.Key, project.Name); //get pullRequests 
+
             var pullRequests = new List<PullRequests>();
 
             if (response?.Values != null) pullRequests.AddRange(response.Values.Select(value => new PullRequests(value)));
 
-            var model = new PullRequestViewModel(project.Name, pullRequests);
+            var model = new PullRequestViewModel(project.Name, pullRequests); // get model 
 
             return View(model);
         }

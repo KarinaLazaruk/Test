@@ -10,10 +10,10 @@ namespace Web.Controllers
 
         public ActionResult Index()
         {
-            var response = _apiClient.GetProjects<ResponseWrapper<Project>>();
+            var response = _apiClient.GetProjects<ResponseWrapper<Project>>(); //get all projects 
 
             foreach (var value in response.Values)
-                value.Avatar = value.GetProjectAvatar();
+                value.Avatar = value.GetProjectAvatar(); //photo's get project
 
             return View(response);
         }}
