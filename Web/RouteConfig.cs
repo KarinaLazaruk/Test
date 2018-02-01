@@ -17,8 +17,8 @@ namespace Web
 
             routes.MapRoute(
                 name: "Project",
-                url: "{controller}/{id}",
-                defaults: new { controller = "Project", id = UrlParameter.Optional }
+                url: "{controller}/{name}",
+                defaults: new { controller = "Project" }
             );
         }
     }

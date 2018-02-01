@@ -11,17 +11,18 @@ namespace Web.Controllers
     {
         private readonly ApiClient _apiClient = new ApiClient();
 
-        public ActionResult Index(Project project)
+        public ActionResult Index(string name)
         {
-            var response = _apiClient.GetPullRequests<ResponseWrapper<PullRequest>>(project.Key, project.Name); //get pullRequests 
+            //var response = _apiClient.GetPullRequests<ResponseWrapper<PullRequest>>(project.Key, project.Name); //get pullRequests 
 
             var pullRequests = new List<PullRequests>();
 
-            if (response?.Values != null) pullRequests.AddRange(response.Values.Select(value => new PullRequests(value)));
+            //if (response?.Values != null) pullRequests.AddRange(response.Values.Select(value => new PullRequests(value)));
 
-            var model = new PullRequestViewModel(project.Name, pullRequests); // get model 
+            var model = new PullRequestViewModel("", pullRequests); // get model 
 
             return View(model);
         }
+        //
     }
 }
