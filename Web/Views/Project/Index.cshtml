@@ -1,6 +1,4 @@
 ﻿@model Web.ViewModels.PullRequestViewModel
-<script src="~/Scripts/jquery-1.10.2.js"></script>
-<script src="~/Scripts/bootstrap.js"></script>
 
 @{
     ViewBag.Title = "Projects";
@@ -14,18 +12,25 @@
     @Html.Partial("Items")
 </div>
 
+<script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
 <script type="text/javascript">
     var pageValue = 1;
+    var _inCallback = false;
+    
     $(window).scroll(function () {
-        if ($(window).scrollTop() === $(document).height() - $(window).height()) {
-            $.post(this.url,
-                { page: pageValue },
-                function (returnedData) {
-                    if (returnedData != null) {
+        if (!_inCallback) {
+            if ($(window).scrollTop() === $(document).height() - $(window).height()) {
+                _inCallback = true;
+                $.post(this.url,
+                    { page: pageValue },
+                    function (returnedData) {
                         $("#scrolList").append(returnedData);
                         pageValue++;
-                    }
-                });
+                        _inCallback = false;
+                    });
+            }
         }
     });
 </script>
