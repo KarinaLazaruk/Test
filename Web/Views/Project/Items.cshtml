@@ -1,45 +1,43 @@
 ﻿@model Web.ViewModels.PullRequestViewModel
 
 <ul class="list-group" style="margin-bottom: 15px">
-    @if (Model != null)
+    @foreach (var pullRequest in Model.PullRequests)
     {
-        foreach (var pullRequest in Model.PullRequests)
-         {
-             <div class="row" style="margin-bottom: 10px; font-size: large">
-                 <div class="col-md-9">@pullRequest.Id @pullRequest.Title</div>
-                 <div class="col-md-1" style="text-align: end">@pullRequest.Date</div>
-             </div>
-             <div class="row" style="margin-bottom: 10px">
-                 <div class="col-md-2">
-                     <img class="media-object" width="190" height="190" src="@pullRequest.Author.Avatar" alt="">
-                     <div style="text-align: center; font-size: large">
-                         <a href="mailto:@pullRequest.Author.User.EmailAddress">@pullRequest.Author.User.DisplayName</a>
-                     </div>
-                 </div>
-                 <div class="col-md-9">
-                     <p>
-                         @foreach (var text in pullRequest.Description)
-                         {@text<br/>}
-                     </p></div>
-             </div>
-             <div class="row" style="margin-bottom: 10px;">
-                 @if (pullRequest.Reviewers.Count > 0)
-                 {
-                     <div class="col-md-2" style="text-align: center; font-size: large">Аудиторы:</div>
-                     <div class="col-md-8">
-                         @foreach (var auditor in pullRequest.Reviewers)
-                         {
-                             <img width="30" height="30" src="@auditor.Avatar" alt="">
-                             <a href="mailto:@auditor.User.EmailAddress">@auditor.User.DisplayName </a>
-                         }
-                     </div>
-                 }
-             </div>
-             <div class="row" style="margin-bottom: 10px; border-bottom: 2px solid black">
-                 <div class="col-md-5 col-md-offset-5">
-                     <div style="margin-bottom: 10px; text-align: end"><a href="@pullRequest.Deeplink">Подробности обновления</a></div>
-                 </div>
-             </div>
-         }
+        <div class="row" style="margin-bottom: 10px; font-size: large">
+            <div class="col-md-9">@pullRequest.Id @pullRequest.Title</div>
+            <div class="col-md-1" style="text-align: end">@pullRequest.Date</div>
+        </div>
+        <div class="row" style="margin-bottom: 10px">
+            <div class="col-md-2">
+                <img class="media-object" width="190" height="190" src="@pullRequest.Author.Avatar" alt="">
+                <div style="text-align: center; font-size: large">
+                    <a href="mailto:@pullRequest.Author.User.EmailAddress">@pullRequest.Author.User.DisplayName</a>
+                </div>
+            </div>
+            <div class="col-md-9">
+                <p>
+                    @foreach (var text in pullRequest.Description)
+                    {@text<br />}
+                </p>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom: 10px;">
+            @if (pullRequest.Reviewers.Length > 0)
+            {
+                <div class="col-md-2" style="text-align: center; font-size: large">Аудиторы:</div>
+                <div class="col-md-8">
+                    @foreach (var auditor in pullRequest.Reviewers)
+                    {
+                        <img width="30" height="30" src="@auditor.Avatar" alt="">
+                        <a href="mailto:@auditor.User.EmailAddress">@auditor.User.DisplayName </a>
+                    }
+                </div>
+            }
+        </div>
+        <div class="row" style="margin-bottom: 10px; border-bottom: 2px solid black">
+            <div class="col-md-5 col-md-offset-5">
+                <div style="margin-bottom: 10px; text-align: end"><a href="@pullRequest.Deeplink">Подробности обновления</a></div>
+            </div>
+        </div>
     }
 </ul>

@@ -18,7 +18,7 @@ namespace Web
             routes.MapRoute(
                 name: "Project",
                 url: "{controller}/{key}/{page}",
-                defaults: new { controller = "Project", key = "Aviav3", page = UrlParameter.Optional }
+                defaults: new { controller = "Project", page = UrlParameter.Optional }
             );
         }
     }

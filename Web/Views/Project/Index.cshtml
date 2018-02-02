@@ -1,5 +1,7 @@
 ﻿@model Web.ViewModels.PullRequestViewModel
 <script src="~/Scripts/jquery-1.10.2.js"></script>
+<script src="~/Scripts/bootstrap.js"></script>
+
 @{
     ViewBag.Title = "Projects";
 }
@@ -19,8 +21,7 @@
             $.post(this.url,
                 { page: pageValue },
                 function (returnedData) {
-                    if (returnedData.value != null)
-                    {
+                    if (returnedData != null) {
                         $("#scrolList").append(returnedData);
                         pageValue++;
                     }

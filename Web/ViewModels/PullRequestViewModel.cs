@@ -22,10 +22,10 @@ namespace Web.ViewModels
     {
         public string Id { get; set; }
         public string Title { get; set; }
-        public List<string> Description { get; set; }
+        public string[] Description { get; set; }
         public string Date { get; set; }
         public AuthorWrapper Author { get; set; }
-        public List<AuthorWrapper> Reviewers { get; set; }
+        public AuthorWrapper[] Reviewers { get; set; }
         public string Deeplink { get; set; }
 
         public PullRequests(PullRequest pullRequest)
@@ -35,22 +35,24 @@ namespace Web.ViewModels
             Date = Convert.ToInt64(pullRequest.CreatedDate).FromTimestamp(); // convert date
             Author = pullRequest.Author;
             Author.Avatar = pullRequest.Author.GetUserAvatar();
-            Reviewers = GetReviewers(pullRequest.Reviewers);
+            Reviewers = GetAvatarReviewers(pullRequest.Reviewers);
             Description = GetDescription(pullRequest.Description);
             Deeplink = pullRequest.Links.Self.First().Href.AbsoluteUri;
         }
-        
-        private static List<AuthorWrapper> GetReviewers(AuthorWrapper[] reviewers) //photo's get wrappers
+
+        //photo's get wrappers
+        private static AuthorWrapper[] GetAvatarReviewers(AuthorWrapper[] reviewers)
         {
-            foreach (var wrapper in reviewers.ToList())
+            foreach (var wrapper in reviewers)
                 wrapper.Avatar = wrapper.GetUserAvatar();
 
-            return reviewers.ToList();
+            return reviewers;
         }
 
-        private List<string> GetDescription(string description) //hyphenations
+        // break the description into lines
+        private string[] GetDescription(string description)
         {
-            return description?.Split(new[] {"\n"}, StringSplitOptions.RemoveEmptyEntries).ToList() ?? new List<string>{ "Описание отсутствует" };
+            return description?.Split(new[] { "\n" }, StringSplitOptions.RemoveEmptyEntries) ?? new[] { "Описание отсутствует" };
         }
     }
 }

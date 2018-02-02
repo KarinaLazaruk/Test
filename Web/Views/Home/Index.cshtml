@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Projects";
-    ViewBag.Action = "ldld";
 }
 
 <h2>Проекты</h2>
@@ -12,7 +11,7 @@
     {
         <div class="col-xs-6 col-md-3" style="margin-bottom: 25px">
             <div class="thumbnail">
-                <img class="media-object" width ="200" height="200" src="@value.Avatar" alt="">
+                <img class="media-object" width="200" height="200" src="@value.Avatar" alt="">
                 <div style="text-align: center; font-size: large"><a href="@Url.Action("Index", "Project", new {key = value.Key})"><h>@value.Name</h></a></div>
             </div>
         </div>

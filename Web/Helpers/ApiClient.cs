@@ -13,7 +13,7 @@ namespace Web.Helpers
 
         public ApiClient()
         {
-            _client = new WebClient {Encoding = Encoding.UTF8}; //init
+            _client = new WebClient { Encoding = Encoding.UTF8 }; //init
             var credentials = Convert.ToBase64String(Encoding.ASCII.GetBytes(ApiConstans.Login + ":" + ApiConstans.Password));
             _client.Headers[HttpRequestHeader.Authorization] = $"Basic {credentials}"; //authorization
         }
