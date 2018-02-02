@@ -1,42 +1,30 @@
 ﻿@model Web.ViewModels.PullRequestViewModel
-
+<script src="~/Scripts/jquery-1.10.2.js"></script>
 @{
     ViewBag.Title = "Projects";
 }
 
-<h2 style="margin-bottom: 15px">Журнал проекта @Model.Name</h2>
+<h2 style="margin-bottom: 15px">
+    Журнал проекта @Model.Name
+</h2>
 
-<ul class="list-group" style="margin-bottom: 15px">
-    @foreach (var pullRequest in Model.PullRequests)
-    {
-        <div class="row" style="margin-bottom: 10px; font-size: large">
-            <div class="col-md-9">@pullRequest.Id @pullRequest.Title</div>
-            <div class="col-md-1" style="text-align: end">@pullRequest.Date</div>
-        </div>
-        <div class="row" style="margin-bottom: 10px">
-            <div class="col-md-2">
-                <img class="media-object" width="190" height="190" src="@pullRequest.Author.Avatar" alt="">
-                <div style="text-align: center; font-size: large">
-                    <a href="mailto:@pullRequest.Author.User.EmailAddress">@pullRequest.Author.User.DisplayName</a>
-                </div>
-            </div>
-            <div class="col-md-9"><p> @foreach (var text in pullRequest.Description){@text<br/>}</p></div>
-        </div>
-        <div class="row" style="margin-bottom: 10px;">
-            @if (pullRequest.Reviewers.Count > 0)
-            {
-                <div class="col-md-2" style="text-align: center; font-size: large">Аудиторы:</div>
-                <div class="col-md-8">
-                    @foreach (var auditor in pullRequest.Reviewers)
+<div id="scrolList">
+    @Html.Partial("Items")
+</div>
+
+<script type="text/javascript">
+    var pageValue = 1;
+    $(window).scroll(function () {
+        if ($(window).scrollTop() === $(document).height() - $(window).height()) {
+            $.post(this.url,
+                { page: pageValue },
+                function (returnedData) {
+                    if (returnedData.value != null)
                     {
-                        <img width="30" height="30" src="@auditor.Avatar" alt="">
-                        <a href="mailto:@auditor.User.EmailAddress">@auditor.User.DisplayName </a>
+                        $("#scrolList").append(returnedData);
+                        pageValue++;
                     }
-                </div>
-            }
-        </div>
-        <div class="row" style="margin-bottom: 10px; border-bottom: 2px solid black">
-            <div class="col-md-8 col-md-offset-8"> <a href="@pullRequest.Deeplink" style="text-align: right">Подробности обновления</a></div>
-        </div>
-    }
-</ul>
+                });
+        }
+    });
+</script>
